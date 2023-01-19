@@ -10,6 +10,13 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 public class GlobalExceptionHandler {
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<MyErrorDetails> myAnyExceptionHandler(AuthorizationException e, WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),e.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<MyErrorDetails> myInvalidDataExpHandler(MethodArgumentNotValidException me) {
 		
