@@ -1,5 +1,5 @@
 package com.greenhood.service;
 
-public class CustomerService {
+public interface CustomerService {
 
 }
