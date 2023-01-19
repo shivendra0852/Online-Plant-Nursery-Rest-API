@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-public class Planters {
+public class Planter {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,14 +55,14 @@ public class Planters {
 	@Min(value=50, message = "Planter cast price must be above 50")
 	private int planterCost;
 	
-	@OneToOne(mappedBy = "planters",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "planter",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JoinTable(name="Planter_plant", joinColumns = @JoinColumn(name="PlantId"),inverseJoinColumns = @JoinColumn(name="PlanterId"))
-	private Plants plants;
+	private Plants plant;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JoinTable(name="Planter_Seed", joinColumns = @JoinColumn(name="SeedId"),inverseJoinColumns = @JoinColumn(name="PlanterId"))
 	@JoinColumn(name="SeedId")
-	private Seeds seeds;
+	private Seeds seed;
 	
 	
 }
