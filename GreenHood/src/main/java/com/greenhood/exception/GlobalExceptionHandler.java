@@ -23,7 +23,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err,HttpStatus.BAD_REQUEST);
 		
 	}
-	
+	@ExceptionHandler(PlantException.class)
+	public ResponseEntity<MyErrorDetails> PlantExceptionHandler(PlantException p, WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),p.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> myAnyExceptionHandler(Exception e, WebRequest req){
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),e.getMessage(),req.getDescription(false));
