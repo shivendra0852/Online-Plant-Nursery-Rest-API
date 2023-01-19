@@ -55,14 +55,14 @@ public class Planter {
 	@Min(value=50, message = "Planter cast price must be above 50")
 	private int planterCost;
 	
-	@OneToOne(mappedBy = "planter",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JoinTable(name="Planter_plant", joinColumns = @JoinColumn(name="PlantId"),inverseJoinColumns = @JoinColumn(name="PlanterId"))
-	private Plants plant;
+	private Plant plant;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	//@JoinTable(name="Planter_Seed", joinColumns = @JoinColumn(name="SeedId"),inverseJoinColumns = @JoinColumn(name="PlanterId"))
 	@JoinColumn(name="SeedId")
-	private Seeds seed;
+	private Seed seed;
 	
 	
 }
