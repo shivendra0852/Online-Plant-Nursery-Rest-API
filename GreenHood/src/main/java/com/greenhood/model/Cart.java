@@ -1,7 +1,7 @@
 package com.greenhood.model;
 
 import lombok.*;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
