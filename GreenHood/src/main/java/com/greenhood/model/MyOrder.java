@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,7 +22,7 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Order{
+public class MyOrder{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer orderId;
@@ -33,7 +35,7 @@ public class Order{
     
     private Double totalCost;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Cart cart;
 
 
