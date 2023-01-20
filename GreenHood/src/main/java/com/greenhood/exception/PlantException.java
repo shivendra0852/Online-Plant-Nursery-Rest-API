@@ -4,7 +4,7 @@ public class PlantException extends RuntimeException{
 
 	public PlantException() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public PlantException(String message) {
