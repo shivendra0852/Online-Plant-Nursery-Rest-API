@@ -3,12 +3,15 @@ package com.greenhood.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.greenhood.model.Plant;
+
 import com.greenhood.model.PlantType;
+import com.greenhood.model.Seed;
 
-public interface PlantDao extends JpaRepository<Plant, Integer>{
+@Repository
+public interface SeedDao extends JpaRepository<Seed, Integer>{
 	
 	//---------------------------Get Plant By Plant Type ------------------
-	public List<Plant> findByPlantType(PlantType plantType);
+	public List<Seed> findBySeedType(PlantType seedType);
 }
