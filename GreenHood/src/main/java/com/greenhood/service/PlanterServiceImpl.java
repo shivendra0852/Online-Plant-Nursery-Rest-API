@@ -195,7 +195,7 @@ public class PlanterServiceImpl implements PlanterService{
 
 	
 	
-//===================================================View Planter By planter id==================================================
+	//===================================================View Planter By planter id==================================================
 
 	
 	
@@ -247,6 +247,7 @@ public class PlanterServiceImpl implements PlanterService{
 	
 	//====================================View All Planters cost Between===========================================================
 
+	
 	@Override
 	public List<Planter> viewAllPlantersBetweenTwoCostRange(double minCost, double maxCost) throws PlanterException {
 
