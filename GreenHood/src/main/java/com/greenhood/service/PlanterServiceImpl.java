@@ -6,7 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.greenhood.exception.AdminCurrentSessionException;
+
+import com.greenhood.exception.AuthorizationException;
 import com.greenhood.exception.PlanterException;
 import com.greenhood.model.AdminCurrentSession;
 import com.greenhood.model.Planter;
@@ -31,11 +32,11 @@ public class PlanterServiceImpl implements PlanterService{
 		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
 		
 		if(admin==null) {
-			throw new AdminCurrentSessionException("Faild.. Admin must be loged in");
+			throw new AuthorizationException("Faild.. Admin must be loged in");
 		}
-		if(planter==null) {
-			throw new PlanterException("please Enter  valid data");
-		}
+//		if(planter==null) {
+//			throw new PlanterException("please Enter  valid data");
+//		}
 		
 		return planterDao.save(planter);
 	}
@@ -48,7 +49,7 @@ public class PlanterServiceImpl implements PlanterService{
 		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
 		
 		if(admin==null) {
-			throw new AdminCurrentSessionException("Faild.. Admin must be loged in");
+			throw new AuthorizationException("Faild.. Admin must be loged in");
 		}
 		if(planter==null) {
 			throw new PlanterException("please Enter  valid data");
@@ -73,7 +74,7 @@ public class PlanterServiceImpl implements PlanterService{
 		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
 		
 		if(admin==null) {
-			throw new AdminCurrentSessionException("Faild.. Admin must be loged in");
+			throw new AuthorizationException("Faild.. Admin must be loged in");
 		}
 		if(planter.getPlanterHeight()<=0 || planter.getPlanterCapacity()<=0) {
 			throw new PlanterException("please Enter valid data");
@@ -105,7 +106,7 @@ public class PlanterServiceImpl implements PlanterService{
 		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
 		
 		if(admin==null) {
-			throw new AdminCurrentSessionException("Faild.. Admin must be loged in");
+			throw new AuthorizationException("Faild.. Admin must be loged in");
 		}
 		
 		if(planter.getDrainageHoles()<=0 || planter.getPlanterColor()==null) {
@@ -138,7 +139,7 @@ public class PlanterServiceImpl implements PlanterService{
 		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
 		
 		if(admin==null) {
-			throw new AdminCurrentSessionException("Faild.. Admin must be loged in");
+			throw new AuthorizationException("Faild.. Admin must be loged in");
 		}
 		
 		if(planter.getPlanterStock()<=0 || planter.getPlanterCost()<50) {
@@ -174,7 +175,7 @@ public class PlanterServiceImpl implements PlanterService{
 		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
 		
 		if(admin==null) {
-			throw new AdminCurrentSessionException("Faild.. Admin must be loged in");
+			throw new AuthorizationException("Faild.. Admin must be loged in");
 		}
 		
 		
