@@ -15,29 +15,30 @@ import java.util.List;
 @Setter
 public class Cart {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer cartId;
     private Integer totalPrice;
-    private Integer plantPrice;
-    private Integer planterPrice;
-    private Integer seedsPrice;
-    private Integer plantQuantity;
-    private Integer planterQuantity;
-    private Integer seedsQuantity;
     private Integer totalItems;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<Planter> planters = new ArrayList<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<Plant> plants = new ArrayList<>();
-//
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<Seeds> seeds = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Planter> plantersList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
+    private List<Plant> plantsList  = new ArrayList<>();
 
-    private List<Order> orders=new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<Seeds> seedsList  = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Order> ordersList =new ArrayList<>();
+    
+//    public List<Plant> getPlantsList () {
+//		return plants;
+//	}
+//
+//	public void setPlants(List<Plant> plantsList ) {
+//		this.plants = plants;
+//	}
 
 }
