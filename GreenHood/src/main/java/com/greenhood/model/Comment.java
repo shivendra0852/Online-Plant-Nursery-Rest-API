@@ -47,8 +47,8 @@ public class Comment {
 	@JoinColumn(name="customerId")
 	private Customer customer;
 	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "planter")
-	private List<Comment> comments = new ArrayList<>();
+//	@JsonIgnore
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "planter")
+//	private List<Comment> comments = new ArrayList<>();
 
 }
