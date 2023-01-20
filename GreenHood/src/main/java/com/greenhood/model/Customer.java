@@ -31,12 +31,12 @@ public class Customer {
     private String password;
     @Column(unique = true)
     @Size(min = 10,max = 12,message = "please Enter valid Mobile Number")
-    private String mobile;
+    private String mobileNo;
     
-    @ElementCollection
+   
 	@Embedded
-	private List<Address> address=new ArrayList<>();
-    
+	private Address address;
+	
     @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;
 

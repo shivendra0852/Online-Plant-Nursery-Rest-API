@@ -18,9 +18,9 @@ import java.util.List;
 	    public Cart addPlanterToCart(Integer planterId, String key) throws CustomerException;
 	    public Cart addSeedsToCart(Integer seedsId,String key) throws CustomerException;
 	    
-	    public Cart decreaseQuantityOfSeeds(Integer seedsId,String key) throws CustomerException;
-	    public Cart decreaseQuantityOfPlant(Integer plantId,String key) throws CustomerException;
-	    public Cart decreaseQuantityOfPlanter(Integer planterId,String key) throws CustomerException;
+	    public Cart removeSeedsFromCart(Integer seedsId,String key) throws CustomerException;
+	    public Cart removePlantFromCart(Integer plantId,String key) throws CustomerException;
+	    public Cart removePlanterFromCart(Integer planterId,String key) throws CustomerException;
 
 
 	}

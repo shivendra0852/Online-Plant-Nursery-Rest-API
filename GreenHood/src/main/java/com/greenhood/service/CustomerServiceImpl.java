@@ -8,10 +8,14 @@ import com.greenhood.exception.CustomerException;
 import com.greenhood.model.Cart;
 import com.greenhood.model.Customer;
 import com.greenhood.repository.CustomerDao;
+import com.greenhood.repository.CustomerSessionDao;
 
 public class CustomerServiceImpl implements CustomerService{
 	   @Autowired
 	    private CustomerDao customerDao;
+	   
+	   @Autowired
+	   private CustomerSessionDao cd;
 	
 //	    @Autowired
 //	    private PlanterDao planterDao;
@@ -23,12 +27,14 @@ public class CustomerServiceImpl implements CustomerService{
 //	    private CartDao cartDao;
 	@Override
 	public Customer registerCustomer(Customer customer) throws CustomerException {
-		if(customer==null)
-		{
-			throw new CustomerException("Enter valid Customer info");
-		}
-		else {
-			return customerDao.save(customer);
+		Customer existingCustomer = customerDao.findByMobileNo(customer.getMobileNo());
+		
+		if(existingCustomer==null) {
+			Customer registeredCustomer = customerDao.save(customer);
+			
+			return registeredCustomer;
+		}else {
+			throw new CustomerException("Email already exists. Please try with another email address.");
 		}
 	}
 	
@@ -73,11 +79,13 @@ public class CustomerServiceImpl implements CustomerService{
 		return null;
 	}
 
+
 	@Override
 	public Cart addPlanterToCart(Integer planterId, String key) throws CustomerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public Cart addSeedsToCart(Integer seedsId, String key) throws CustomerException {
@@ -85,22 +93,28 @@ public class CustomerServiceImpl implements CustomerService{
 		return null;
 	}
 
+
 	@Override
-	public Cart decreaseQuantityOfSeeds(Integer seedsId, String key) throws CustomerException {
+	public Cart removeSeedsFromCart(Integer seedsId, String key) throws CustomerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
-	public Cart decreaseQuantityOfPlant(Integer plantId, String key) throws CustomerException {
+	public Cart removePlantFromCart(Integer plantId, String key) throws CustomerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
-	public Cart decreaseQuantityOfPlanter(Integer planterId, String key) throws CustomerException {
+	public Cart removePlanterFromCart(Integer planterId, String key) throws CustomerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	
 
 }

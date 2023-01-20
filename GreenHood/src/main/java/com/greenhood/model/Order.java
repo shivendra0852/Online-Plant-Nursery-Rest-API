@@ -33,10 +33,9 @@ public class Order{
     
     private Double totalCost;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    private Cart cart;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Cart cart;
 
-
-
+    private Integer cartId;
 
 }
