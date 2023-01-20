@@ -60,7 +60,7 @@ public class Plant {
 	@NotNull(message = "Please Provide Required Input")
 	
 	@Min(value = 1,message = "Plant cost must be greater than 1")
-	private Double plantCost;
+	private Integer plantCost;
 	
 	
 	
