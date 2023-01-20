@@ -61,4 +61,24 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+	/*===================================Admin Current Session Exception Handler=====================================*/
+	
+	
+	@ExceptionHandler(AdminCurrentSessionException.class)
+	public ResponseEntity<MyErrorDetails> adminCurrentSessionExceptionHandler(AdminCurrentSessionException ne, WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ne.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
+	/*===========================================Plant Exception Handler===============================================*/
+	
+	
+	@ExceptionHandler(PlantException.class)
+	public ResponseEntity<MyErrorDetails> plantExceptionHandler(PlantException ne, WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ne.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
 }
