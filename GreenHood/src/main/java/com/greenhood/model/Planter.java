@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,11 +19,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
+@Table(name="Planters")
 public class Planter {
 
 	@Id
@@ -70,6 +74,7 @@ public class Planter {
 	//@JoinTable(name="Planter_Seed", joinColumns = @JoinColumn(name="SeedId"),inverseJoinColumns = @JoinColumn(name="PlanterId"))
 	@JoinColumn(name="SeedId")
 	private Seed seed;
+	
 	
 	
 }

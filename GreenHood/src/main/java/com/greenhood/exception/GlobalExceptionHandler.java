@@ -60,8 +60,10 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
+  
+  
 	/*========================================Seed Exception Handler==================================================*/
-	
+
 	@ExceptionHandler(SeedException.class)
 	public ResponseEntity<MyErrorDetails> seedExceptionHandler(SeedException ne, WebRequest req){
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ne.getMessage(),req.getDescription(false));
@@ -69,6 +71,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
 	
+	
+
 	/*========================================Plant Exception Handler==================================================*/
 
 	@ExceptionHandler(PlantException.class)
@@ -77,4 +81,5 @@ public class GlobalExceptionHandler {
 		
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
+
 }
