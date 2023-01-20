@@ -1,6 +1,8 @@
 package com.greenhood.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,6 +47,10 @@ public class Plant {
 	@NotNull(message = "Please Provide Required Input")
 	@NotBlank(message = "Plant Description must not be Blank")
 	private String plantDescription;
+	
+	
+	@Enumerated(EnumType.STRING)
+	private PlantType plantType;
 	
 	@NotNull(message = "Please Provide Required Input")
 	
