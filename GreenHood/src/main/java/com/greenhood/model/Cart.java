@@ -37,6 +37,6 @@ public class Cart {
 //    private List<Seeds> seeds = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Order order;
+    private List<Order> orders = new ArrayList<>();
 
 }
