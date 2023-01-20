@@ -8,6 +8,6 @@ import com.greenhood.model.AdminCurrentSession;
 @Repository
 public interface AdminSessionDao extends JpaRepository<AdminCurrentSession,Integer>{
 	
-	public AdminSessionDao findByUniqueId(String uId);
+	public AdminCurrentSession findByUniqueId(String uId);
 	
 }
