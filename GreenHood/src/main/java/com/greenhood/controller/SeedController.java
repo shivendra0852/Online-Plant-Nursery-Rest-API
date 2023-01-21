@@ -52,9 +52,9 @@ public class SeedController {
 	
 	
 	//------------------ Get all List of Seed -----------------------------------
-	@GetMapping("/seeds/{key}")
-	public ResponseEntity<List<Seed>> listOfAllSeedHandler( @PathVariable("key") String key) throws SeedException, AuthorizationException{
-		List<Seed> list = sService.getAllSeed(key);
+	@GetMapping("/seeds")
+	public ResponseEntity<List<Seed>> listOfAllSeedHandler( ) throws SeedException{
+		List<Seed> list = sService.getAllSeed();
 		return  new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
@@ -69,9 +69,9 @@ public class SeedController {
 	
 	
 	////------------------ Get Seed By Seed Type -----------------------------------
-	@GetMapping("/seeds/{seedType}/{key}")
-	public ResponseEntity<List<Seed>> getSeedBySeedTypeHandler(@PathVariable("seedType")PlantType seedType, @PathVariable("key") String key) throws SeedException, AuthorizationException{
-		List<Seed> list = sService.getSeedBySeedType(seedType, key);
+	@GetMapping("/seeds/{seedType}")
+	public ResponseEntity<List<Seed>> getSeedBySeedTypeHandler(@PathVariable("seedType")PlantType seedType) throws SeedException{
+		List<Seed> list = sService.getSeedBySeedType(seedType);
 		return  new ResponseEntity<List<Seed>>(list, HttpStatus.OK);
 	}
 }

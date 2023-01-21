@@ -11,6 +11,6 @@ import com.greenhood.model.Seed;
 @Repository
 public interface SeedDao extends JpaRepository<Seed, Integer>{
 	
-	//---------------------------Get Plant By Plant Type ------------------
+	//---------------------------Get Seed By Seed Type ------------------
 	public List<Seed> findBySeedType(PlantType seedType);
 }

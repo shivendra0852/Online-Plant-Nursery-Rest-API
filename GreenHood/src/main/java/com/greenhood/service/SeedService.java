@@ -21,12 +21,12 @@ public interface SeedService {
 		
 		
 		//-------------- List of seed ---------------------------------
-		public List<Seed> getAllSeed(String key) throws SeedException, AuthorizationException;
+		public List<Seed> getAllSeed() throws SeedException;
 		
 		//-------------------Get Seed By seed Id ---------------------------
 		public Seed getSeedById(Integer seedId,String key)throws SeedException, AuthorizationException;
 		
 		//------------------- Get Seed By seed SeedType --------------------------------- 
-		public List<Seed> getSeedBySeedType(PlantType seedType,String key)throws SeedException, AuthorizationException;
+		public List<Seed> getSeedBySeedType(PlantType seedType)throws SeedException;
 
 }

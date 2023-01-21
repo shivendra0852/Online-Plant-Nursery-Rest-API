@@ -218,8 +218,9 @@ public class CustomerServiceImpl implements CustomerService{
 			
 				cart.setTotalPrice(cart.getTotalPrice()+seed.getSeedCost());
 				cart.setTotalItems(cart.getTotalItems()+1);
+
 				cart.getSeedsList().add(seed);
-				
+
 				return cartDao.save(cart);
 			
 		}
@@ -335,9 +336,5 @@ public class CustomerServiceImpl implements CustomerService{
 			cartDao.delete(cart);
 			return cart;
 		}
-	}
-
-
-	
 
 }
