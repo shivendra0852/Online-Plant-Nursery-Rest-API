@@ -16,11 +16,13 @@ import com.greenhood.model.Customer;
 import com.greenhood.model.CustomerCurrentSession;
 import com.greenhood.model.Plant;
 import com.greenhood.model.Planter;
+import com.greenhood.model.Seed;
 import com.greenhood.repository.CartDao;
 import com.greenhood.repository.CustomerDao;
 import com.greenhood.repository.CustomerSessionDao;
 import com.greenhood.repository.PlantDao;
 import com.greenhood.repository.PlanterDao;
+import com.greenhood.repository.SeedDao;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -34,8 +36,8 @@ public class CustomerServiceImpl implements CustomerService{
 	    private PlanterDao planterDao;
 	    @Autowired
 	    private PlantDao plantDao;
-//	    @Autowired
-//	    private SeedDao seedDao;
+	    @Autowired
+	    private SeedDao seedDao;
 	    @Autowired
 	    private CartDao cartDao;
 	    
@@ -162,42 +164,73 @@ public class CustomerServiceImpl implements CustomerService{
 
 
 	@Override
-	public Cart addPlanterToCart(Integer planterId, String key) throws CustomerException, AuthorizationException,PlanterException {
+	public Cart addPlanterToCart(Integer cartId,Integer planterId, String key) throws CustomerException, AuthorizationException,PlanterException {
 		CustomerCurrentSession loggedInUser = sessionDao.findByUniqueId(key);
 		
 		if(loggedInUser==null) {
 			throw new AuthorizationException("Please provide a valid key to update your details.");
 		}
 		
-		 Optional<Planter> optionalPlanter = planterDao.findById(planterId);
-		 Planter planter= optionalPlanter.get();
-		 
-		if(planter==null)
+		Optional<Cart> getCart = cartDao.findById(cartId);
+		Cart cart = getCart.get();
+		
+		if(loggedInUser.getCustomerId()==cart.getCustomer().getCustomerId())
 		{
-			throw new PlanterException("No planter found for given plantId");
+			Optional<Planter> optionalPlanter = planterDao.findById(planterId);
+			Planter planter= optionalPlanter.get();
+			 
+			if(planter == null) {
+				throw new PlanterException("No planters available with this id");
+			}
+			
+				cart.setTotalPrice(cart.getTotalPrice()+planter.getPlanterCost());
+				cart.setTotalItems(cart.getTotalItems()+1);
+				cart.getPlantersList().add(planter);
+				
+				return cartDao.save(cart);
+			
 		}
 		else {
-			Cart cart=new Cart();
-			
-			cart.setTotalPrice(cart.getTotalPrice()+planter.getPlanterCost());
-			cart.setTotalItems(cart.getTotalItems()+1);
-			
-			cart.getPlantersList().add(planter);
-			
-			return cartDao.save(cart);
+			throw new AuthorizationException("Customer and cart mismatch");
 		}
 	}
 
 
 	@Override
-	public Cart addSeedsToCart(Integer seedsId, String key) throws CustomerException, AuthorizationException,SeedException {
-		// TODO Auto-generated method stub
-		return null;
+	public Cart addSeedsToCart(Integer cartId,Integer seedsId, String key) throws CustomerException, AuthorizationException,SeedException {
+		CustomerCurrentSession loggedInUser = sessionDao.findByUniqueId(key);
+		
+		if(loggedInUser==null) {
+			throw new AuthorizationException("Please provide a valid key to update your details.");
+		}
+		
+		Optional<Cart> getCart = cartDao.findById(cartId);
+		Cart cart = getCart.get();
+		
+		if(loggedInUser.getCustomerId()==cart.getCustomer().getCustomerId())
+		{
+			Optional<Seed> optionalSeeds = seedDao.findById(seedsId);
+			Seed seed= optionalSeeds.get();
+			 
+			if(seed == null) {
+				throw new PlanterException("No seeds available with this id");
+			}
+			
+				cart.setTotalPrice(cart.getTotalPrice()+seed.getSeedCost());
+				cart.setTotalItems(cart.getTotalItems()+1);
+				cart.getseedList().add(seed);
+				
+				return cartDao.save(cart);
+			
+		}
+		else {
+			throw new AuthorizationException("Customer and cart mismatch");
+		}
 	}
 
 
 	@Override
-	public Cart removeSeedsFromCart(Integer seedsId, String key) throws CustomerException, AuthorizationException,SeedException {
+	public Cart removeSeedsFromCart(Integer cartId,Integer seedsId, String key) throws CustomerException, AuthorizationException,SeedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -244,31 +277,8 @@ public class CustomerServiceImpl implements CustomerService{
 
 
 	@Override
-	public Cart removePlanterFromCart(Integer planterId, String key) throws CustomerException, AuthorizationException,PlanterException{
-		CustomerCurrentSession loggedInUser = sessionDao.findByUniqueId(key);
-		
-		if(loggedInUser==null) {
-			throw new AuthorizationException("Please provide a valid key to update your details.");
-		}
-		
-		 Optional<Planter> optionalPlanter = planterDao.findById(planterId);
-		 Planter planter= optionalPlanter.get();
-		 
-		if(planter==null)
-		{
-			throw new PlanterException("No planter found for given plantId");
-		}
-		else {
-			Cart cart=new Cart();
-			
-			cart.setTotalPrice(cart.getTotalPrice()-planter.getPlanterCost());
-			cart.setTotalItems(cart.getTotalItems()-1);
-			
-			cart.getPlantersList().remove(planter);
-			
-			cartDao.delete(cart);
-			return cart;
-		}
+	public Cart removePlanterFromCart(Integer cartId,Integer planterId, String key) throws CustomerException, AuthorizationException,PlanterException{
+		return null;
 	}
 
 

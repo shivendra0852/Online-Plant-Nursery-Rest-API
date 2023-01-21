@@ -18,12 +18,12 @@ import com.greenhood.model.Customer;
 	    public Customer getCustomerById(Integer customerId,String key) throws CustomerException, AuthorizationException;
 	    
 	    public Cart addPlantToCart(Integer cartId,Integer plantId,String key) throws CustomerException, AuthorizationException,PlantException;
-	    public Cart addPlanterToCart(Integer planterId, String key) throws CustomerException, AuthorizationException,PlanterException;
-	    public Cart addSeedsToCart(Integer seedsId,String key) throws CustomerException, AuthorizationException,SeedException;
+	    public Cart addPlanterToCart(Integer cartId,Integer planterId, String key) throws CustomerException, AuthorizationException,PlanterException;
+	    public Cart addSeedsToCart(Integer cartId,Integer seedsId,String key) throws CustomerException, AuthorizationException,SeedException;
 	    
-	    public Cart removeSeedsFromCart(Integer seedsId,String key) throws CustomerException, AuthorizationException,SeedException;
+	    public Cart removeSeedsFromCart(Integer cartId,Integer seedsId,String key) throws CustomerException, AuthorizationException,SeedException;
 	    public Cart removePlantFromCart(Integer cartId, Integer plantId,String key) throws CustomerException, AuthorizationException,PlantException;
-	    public Cart removePlanterFromCart(Integer planterId,String key) throws CustomerException, AuthorizationException,PlanterException;
+	    public Cart removePlanterFromCart(Integer cartId,Integer planterId,String key) throws CustomerException, AuthorizationException,PlanterException;
 
 
 	}
