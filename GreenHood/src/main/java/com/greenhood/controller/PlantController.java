@@ -47,9 +47,9 @@ public class PlantController {
 		return  new ResponseEntity<Plant>(deletePlant, HttpStatus.OK);
 	}
 	//------------------ Get all List of Plant -----------------------------------
-	@GetMapping("/plants/{key}")
-	public ResponseEntity<List<Plant>> listOfAllPlantHandler( @PathVariable("key") String key) throws PlantException, AuthorizationException{
-		List<Plant> list = pService.getAllPlant(key);
+	@GetMapping("/plants")
+	public ResponseEntity<List<Plant>> listOfAllPlantHandler( @PathVariable("key") String key) throws PlantException{
+		List<Plant> list = pService.getAllPlant();
 		return  new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	//------------------ Get Plant By Plant Id -----------------------------------
@@ -60,9 +60,9 @@ public class PlantController {
 	}
 	
 	////------------------ Get Plant By Plant Type -----------------------------------
-	@GetMapping("/plants/{plantType}/{key}")
-	public ResponseEntity<List<Plant>> getPlantByPlantTypeHandler(@PathVariable("plantType")PlantType plantType, @PathVariable("key") String key) throws PlantException, AuthorizationException{
-		List<Plant> list = pService.getPlantByPlantType(plantType, key);
+	@GetMapping("/plants/{plantType}")
+	public ResponseEntity<List<Plant>> getPlantByPlantTypeHandler(@PathVariable("plantType")PlantType plantType) throws PlantException{
+		List<Plant> list = pService.getPlantByPlantType(plantType);
 		return  new ResponseEntity<List<Plant>>(list, HttpStatus.OK);
 	}
 }

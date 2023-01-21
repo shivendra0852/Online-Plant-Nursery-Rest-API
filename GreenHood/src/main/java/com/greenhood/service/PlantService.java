@@ -23,11 +23,11 @@ public interface PlantService {
 	
 	
 	//-------------- List of Plant ---------------------------------
-	public List<Plant> getAllPlant(String key) throws PlantException, AuthorizationException;
+	public List<Plant> getAllPlant() throws PlantException;
 	
 	//-------------------Get Plant By Plant Id ---------------------------
 	public Plant getPlantById(Integer plantId,String key)throws PlantException, AuthorizationException;
 	
 	//------------------- Get Plant By Plant PlantType --------------------------------- 
-	public List<Plant> getPlantByPlantType(PlantType plantType,String key)throws PlantException, AuthorizationException;
+	public List<Plant> getPlantByPlantType(PlantType plantType)throws PlantException;
 }

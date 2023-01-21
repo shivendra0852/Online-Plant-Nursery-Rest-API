@@ -67,15 +67,12 @@ public class SeedServiceImpl implements SeedService{
 	}
 
 	@Override
-	public List<Seed> getAllSeed(String key) throws SeedException, AuthorizationException {
-		AdminCurrentSession adminCurrentSession = (AdminCurrentSession) aSDao.findByUniqueId(key);
+	public List<Seed> getAllSeed() throws SeedException{
 		
-		if(adminCurrentSession==null)throw new AuthorizationException("Please provide a valid customer key to Delete a Seed...!");
-		else {
 			List<Seed> list = sDao.findAll();
 			if(list.size()!=0)return list;
 			else throw new SeedException("Seed not found ..........! ");
-		}
+		
 	}
 
 	@Override
@@ -96,11 +93,8 @@ public class SeedServiceImpl implements SeedService{
 	}
 
 	@Override
-	public List<Seed> getSeedBySeedType(PlantType seedType, String key) throws SeedException, AuthorizationException {
-		AdminCurrentSession adminCurrentSession = (AdminCurrentSession) aSDao.findByUniqueId(key);
+	public List<Seed> getSeedBySeedType(PlantType seedType) throws SeedException{
 		
-		if(adminCurrentSession==null)throw new AuthorizationException("Please provide a valid customer key to Delete a Seed...!");
-		else {
 			List<Seed> list = sDao.findBySeedType(seedType);
 			if(list.size()!=0) {
 			
@@ -109,7 +103,7 @@ public class SeedServiceImpl implements SeedService{
 				
 			}else throw new SeedException("Seed not found by this Seed Type: ..........! "+seedType);
 			
-		}
+		
 	}
 
 }

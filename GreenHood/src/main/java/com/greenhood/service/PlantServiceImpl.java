@@ -72,15 +72,12 @@ public class PlantServiceImpl implements PlantService{
 	}
 	//------------- GEt List Of All Plant -------------------------------------------------
 	@Override
-	public List<Plant> getAllPlant(String key) throws PlantException, AuthorizationException {
-		AdminCurrentSession adminCurrentSession = (AdminCurrentSession) aSDao.findByUniqueId(key);
+	public List<Plant> getAllPlant() throws PlantException{
 		
-		if(adminCurrentSession==null)throw new AuthorizationException("Please provide a valid customer key to Delete a Plant...!");
-		else {
 			List<Plant> list = pDao.findAll();
 			if(list.size()!=0)return list;
 			else throw new PlantException("Plants not found ..........! ");
-		}
+		
 		
 	}
 	
@@ -104,11 +101,8 @@ public class PlantServiceImpl implements PlantService{
 	}
 	//------------- Get Plant By Plant Type -------------------------------------------------
 	@Override
-	public List<Plant> getPlantByPlantType(PlantType plantType, String key) throws PlantException, AuthorizationException {
-		AdminCurrentSession adminCurrentSession = (AdminCurrentSession) aSDao.findByUniqueId(key);
+	public List<Plant> getPlantByPlantType(PlantType plantType) throws PlantException{
 		
-		if(adminCurrentSession==null)throw new AuthorizationException("Please provide a valid customer key to Delete a Plant...!");
-		else {
 			List<Plant> list = pDao.findByPlantType(plantType);
 			if(list.size()!=0) {
 			
@@ -117,7 +111,7 @@ public class PlantServiceImpl implements PlantService{
 				
 			}else throw new PlantException("Plant not found by this Plant Type: ..........! "+plantType);
 			
-		}
+		
 	}
 	
 	
