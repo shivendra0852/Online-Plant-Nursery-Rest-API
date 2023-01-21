@@ -1,17 +1,17 @@
 package com.greenhood.model;
 
-import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -28,14 +28,14 @@ public class Customer {
     @Size(min=3, max=15, message="length should be between 3 to 15 char")
     private String lastName;
     
-    @Column(unique = true)
+    
     @Email(message = "Please provide valid email")
     private String email;
     
     @Size(min = 8,max = 15,message = "length should be between 3 to 15 char")
     private String password;
     
-    @Column(unique = true)
+    
     private String mobileNo;
     
    

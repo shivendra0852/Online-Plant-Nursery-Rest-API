@@ -1,5 +1,6 @@
 package com.greenhood.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +41,23 @@ public class CustomerServiceImpl implements CustomerService{
 	    
 	@Override
 	public Customer registerCustomer(Customer customer) throws CustomerException {
+		
 		Customer existingCustomer = customerDao.findByMobileNo(customer.getMobileNo());
 		
-		if(existingCustomer==null) {
-			Customer registeredCustomer = customerDao.save(customer);
-			
-			return registeredCustomer;
-		}else {
-			throw new CustomerException("Email already exists. Please try with another email address.");
+		if(existingCustomer!=null) {
+			throw new CustomerException("Customer already registered with this mobile No!");
 		}
+		
+		Customer registeredCustomer = customerDao.save(customer);
+		
+		Cart cart = new Cart();
+		cart.setCustomer(registeredCustomer);
+		cart.setTotalItems(0);
+		cart.setTotalPrice(0);
+		cartDao.save(cart);
+		
+		return registeredCustomer;
+		
 	}
 	
 
@@ -116,55 +125,40 @@ public class CustomerServiceImpl implements CustomerService{
 		
 	}
 	
+//	====================================================================================================
 
-//	@Override
-//	public Cart addPlantToCart(Integer customerId,Integer cartId, Integer plantId, String key) throws CustomerException, AuthorizationException,PlantException {
-//		CustomerCurrentSession loggedInUser = sessionDao.findByUniqueId(key);
-//		Optional<Customer> customer=customerDao.findById(customerId);
-//		if(loggedInUser==null) {
-//			throw new AuthorizationException("Please provide a valid key to update your details.");
-//		}
-//		
-//		if(customerId==loggedInUser.getCustomerId())
-//		{
-//			Optional<Cart> getCart=cartDao.findById(cartId);
-////			if(getCart.get()==null)
-////			{
-////				Cart newCart=new Cart();
-////				
-////			}
-//			Cart cart=getCart.get();
-//			Optional<Plant> optionalPlant = plantDao.findById(plantId);
-//			 Plant plant= optionalPlant.get();
-//			 if(plant==null)
-//				{
-//					throw new PlantException("No plant found for given plantId");
-//				}
-////			if(cartId==customer.get().getCart().getCartId())
-//			{
-//				
-//				cart.setTotalPrice(cart.getTotalPrice()+plant.getPlantCost());
-//				cart.setTotalItems(cart.getTotalItems()+1);
-//				cart.getPlantsList().add(plant);
-//				
-//				return cartDao.save(cart);
-//			}
-//			else {
-//				throw new CustomerException("Invalid cartId");
-//			}
-//			
-//		}
-//		else {
-//			throw new AuthorizationException("Invalid customer");
-//		}
-//		 
-//		 
-//		
-//		
-//			
-//			
-//		
-//	}
+	@Override
+	public Cart addPlantToCart(Integer cartId, Integer plantId, String key) throws CustomerException, AuthorizationException,PlantException {
+		
+		CustomerCurrentSession loggedInUser = sessionDao.findByUniqueId(key);
+		
+		if(loggedInUser==null) {
+			throw new AuthorizationException("Please provide a valid key to update your details.");
+		}
+		
+		Optional<Cart> getCart = cartDao.findById(cartId);
+		Cart cart = getCart.get();
+		
+		if(loggedInUser.getCustomerId()==cart.getCustomer().getCustomerId())
+		{
+			Optional<Plant> optionalPlant = plantDao.findById(plantId);
+			Plant plant= optionalPlant.get();
+			 
+			if(plant == null) {
+				throw new PlantException("No plants available with this id");
+			}
+			
+				cart.setTotalPrice(cart.getTotalPrice()+plant.getPlantCost());
+				cart.setTotalItems(cart.getTotalItems()+1);
+				cart.getPlantsList().add(plant);
+				
+				return cartDao.save(cart);
+			
+		}
+		else {
+			throw new AuthorizationException("Customer and cart mismatch");
+		}
+	}
 
 
 	@Override
@@ -210,30 +204,41 @@ public class CustomerServiceImpl implements CustomerService{
 
 
 	@Override
-	public Cart removePlantFromCart(Integer plantId, String key) throws CustomerException, AuthorizationException,PlantException {
+	public Cart removePlantFromCart(Integer cartId, Integer plantId, String key) throws CustomerException, AuthorizationException,PlantException {
 		CustomerCurrentSession loggedInUser = sessionDao.findByUniqueId(key);
 		
 		if(loggedInUser==null) {
 			throw new AuthorizationException("Please provide a valid key to update your details.");
 		}
 		
-		 Optional<Plant> optionalPlant = plantDao.findById(plantId);
-		 Plant plant= optionalPlant.get();
-		 
-		if(plant==null)
-		{
-			throw new PlantException("No planter found for given plantId");
-		}
-		else {
-			Cart cart=new Cart();
+		Optional<Cart> getCart = cartDao.findById(cartId);
+		Cart cart = getCart.get();
+		
+		if(loggedInUser.getCustomerId()==cart.getCustomer().getCustomerId()) {
 			
-			cart.setTotalPrice(cart.getTotalPrice()-plant.getPlantCost());
+			List<Plant> plants = cart.getPlantsList();
+			Plant existingPlant = null;
+			
+			for(Plant p : plants) {
+				if(p.getPlantId()==plantId) {
+					existingPlant = p;
+				}
+			}
+			
+			if(existingPlant==null) {
+				throw new PlantException("Plant is not available in the cart!");
+			}
+			
+			plants.remove(existingPlant);
+			cart.setTotalPrice(cart.getTotalPrice()-existingPlant.getPlantCost());
 			cart.setTotalItems(cart.getTotalItems()-1);
 			
-			cart.getPlantsList().remove(plant);
-			
-			cartDao.delete(cart);
-			return cart;
+			return cartDao.save(cart);
+		}
+		
+		 
+		else {
+			throw new AuthorizationException("Customer and cart mismatch");
 		}
 	}
 
