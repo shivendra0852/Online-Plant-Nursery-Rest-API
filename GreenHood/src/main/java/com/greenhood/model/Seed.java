@@ -50,7 +50,7 @@ public class Seed {
 	
 	@NotNull(message = "Please Provide Required Input")
 	@Min(value = 1,message = "Seed cost must be greater than 1")
-	private Double seedCost;
+	private Integer seedCost;
 	
 	@NotNull(message = "Please Provide Required Input")	
 	@Min(value = 1,message = "Seed Quantity must be greater than 1")
