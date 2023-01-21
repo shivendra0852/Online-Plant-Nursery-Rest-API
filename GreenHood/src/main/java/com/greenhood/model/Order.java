@@ -1,13 +1,13 @@
 package com.greenhood.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -22,10 +22,13 @@ public class Order{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderId;
     
-    private LocalDate OrderDate;
+    private LocalDateTime orderDate;
     
-//    private Double totalCost;
+    private Integer totalCost;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Cart cart;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Customer customer;
 }

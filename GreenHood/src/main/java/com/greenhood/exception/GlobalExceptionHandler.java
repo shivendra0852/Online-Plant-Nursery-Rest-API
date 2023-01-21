@@ -11,7 +11,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 public class GlobalExceptionHandler {
 	@ExceptionHandler(AuthorizationException.class)
-	public ResponseEntity<MyErrorDetails> myAnyExceptionHandler(AuthorizationException e, WebRequest req){
+	public ResponseEntity<MyErrorDetails> myAuthorizationExceptionHandler(AuthorizationException e, WebRequest req){
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),e.getMessage(),req.getDescription(false));
 		
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
@@ -83,6 +83,20 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(PlantException.class)
 	public ResponseEntity<MyErrorDetails> plantExceptionHandler(PlantException ne, WebRequest req){
 		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ne.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(CartException.class)
+	public ResponseEntity<MyErrorDetails> myCartExceptionHandler(CartException ce, WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ce.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(OrderException.class)
+	public ResponseEntity<MyErrorDetails> myOrderExceptionHandler(OrderException ce, WebRequest req){
+		MyErrorDetails err = new MyErrorDetails(LocalDateTime.now(),ce.getMessage(),req.getDescription(false));
 		
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 	}
