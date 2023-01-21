@@ -19,7 +19,6 @@ import com.greenhood.exception.AuthorizationException;
 import com.greenhood.exception.SeedException;
 import com.greenhood.model.PlantType;
 import com.greenhood.model.Seed;
-
 import com.greenhood.service.SeedService;
 @RestController
 public class SeedController {

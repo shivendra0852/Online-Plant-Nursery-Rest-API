@@ -3,9 +3,7 @@ package com.greenhood.service;
 import java.util.List;
 
 import com.greenhood.exception.AuthorizationException;
-
 import com.greenhood.exception.SeedException;
-
 import com.greenhood.model.PlantType;
 import com.greenhood.model.Seed;
 
