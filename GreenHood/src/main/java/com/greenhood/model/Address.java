@@ -10,8 +10,6 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @ToString
 public class Address {
 

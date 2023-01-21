@@ -22,11 +22,9 @@ import lombok.NoArgsConstructor;
 
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Entity
-@Table(name="Planters")
+@Table(name="PLANTERS")
 public class Planter {
 
 	@Id
@@ -75,6 +73,6 @@ public class Planter {
 	@JoinColumn(name="SeedId")
 	private Seed seed;
 	
-	
+	private Integer cartId;
 	
 }

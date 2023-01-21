@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RequestMapping("/customer")
 public class CustomerController {
 @Autowired
-CustomerService cService;
+private CustomerService cService;
 
 @PostMapping("/registerCustomer")
 public ResponseEntity<Customer> registerCustomerHandler(@Valid @RequestBody Customer customer) throws CustomerException

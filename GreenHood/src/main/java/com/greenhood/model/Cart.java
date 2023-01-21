@@ -1,18 +1,16 @@
 package com.greenhood.model;
 
 import lombok.*;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @Entity
-@Getter
-@Setter
+@Table(name = "CARTS")
 public class Cart {
 
 	@Id
@@ -20,6 +18,9 @@ public class Cart {
     private Integer cartId;
     private Integer totalPrice;
     private Integer totalItems;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Planter> plantersList = new ArrayList<>();
@@ -30,8 +31,8 @@ public class Cart {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Seed> seedsList  = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Order> ordersList =new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<Order> ordersList =new ArrayList<>();
     
     
 //    public List<Plant> getPlantsList () {

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenhood.exception.AuthorizationException;
+import com.greenhood.exception.SeedException;
 import com.greenhood.model.PlantType;
 import com.greenhood.model.Seed;
 
@@ -27,7 +29,7 @@ public class SeedController {
 	
 	//-------------- Register New Seed ----------------------------
 	@PostMapping("/seeds/{key}")
-	public ResponseEntity<Seed> saveSeedHandler(@Valid @RequestBody Seed seed,@PathVariable("key") String key){
+	public ResponseEntity<Seed> saveSeedHandler(@Valid @RequestBody Seed seed,@PathVariable("key") String key) throws SeedException, AuthorizationException{
 		Seed savedSeed = sService.registerSeed(seed, key);
 		return new ResponseEntity<Seed>(savedSeed, HttpStatus.CREATED);
 	}
@@ -36,7 +38,7 @@ public class SeedController {
 	
 	//------------------ Update New Seed -----------------------------------
 	@PutMapping("/seeds/{key}")
-	public ResponseEntity<Seed> updateSeedHandler( @Valid @RequestBody Seed seed, @PathVariable("key") String key) {
+	public ResponseEntity<Seed> updateSeedHandler( @Valid @RequestBody Seed seed, @PathVariable("key") String key) throws SeedException, AuthorizationException{
 		Seed updateSeed = sService.updateSeed(seed,key);
 		return  new ResponseEntity<Seed>(updateSeed, HttpStatus.OK);
 	}
@@ -44,7 +46,7 @@ public class SeedController {
 	
 	//------------------ Delete New Seed -----------------------------------
 	@DeleteMapping("/seeds/{seedId}/{key}")
-	public ResponseEntity<Seed> deleteSeedHandler(@PathVariable("seedId")Integer seedId, @PathVariable("key") String key) {
+	public ResponseEntity<Seed> deleteSeedHandler(@PathVariable("seedId")Integer seedId, @PathVariable("key") String key) throws SeedException, AuthorizationException{
 		Seed deleteSeed = sService.deleteSeed(seedId,key);
 		return  new ResponseEntity<Seed>(deleteSeed, HttpStatus.OK);
 	}
@@ -52,7 +54,7 @@ public class SeedController {
 	
 	//------------------ Get all List of Seed -----------------------------------
 	@GetMapping("/seeds/{key}")
-	public ResponseEntity<List<Seed>> listOfAllSeedHandler( @PathVariable("key") String key) {
+	public ResponseEntity<List<Seed>> listOfAllSeedHandler( @PathVariable("key") String key) throws SeedException, AuthorizationException{
 		List<Seed> list = sService.getAllSeed(key);
 		return  new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -61,7 +63,7 @@ public class SeedController {
 	
 	//------------------ Get Seed By Seed Id -----------------------------------
 	@GetMapping("/seeds/{seedId}/{key}")
-	public ResponseEntity<Seed> getSeedByIdHandler(@PathVariable("seedId")Integer seedId, @PathVariable("key") String key){
+	public ResponseEntity<Seed> getSeedByIdHandler(@PathVariable("seedId")Integer seedId, @PathVariable("key") String key) throws SeedException, AuthorizationException{
 		Seed seed = sService.getSeedById(seedId, key);
 		return  new ResponseEntity<Seed>(seed, HttpStatus.OK);
 	}
@@ -69,7 +71,7 @@ public class SeedController {
 	
 	////------------------ Get Seed By Seed Type -----------------------------------
 	@GetMapping("/seeds/{seedType}/{key}")
-	public ResponseEntity<List<Seed>> getSeedBySeedTypeHandler(@PathVariable("seedType")PlantType seedType, @PathVariable("key") String key){
+	public ResponseEntity<List<Seed>> getSeedBySeedTypeHandler(@PathVariable("seedType")PlantType seedType, @PathVariable("key") String key) throws SeedException, AuthorizationException{
 		List<Seed> list = sService.getSeedBySeedType(seedType, key);
 		return  new ResponseEntity<List<Seed>>(list, HttpStatus.OK);
 	}

@@ -27,7 +27,7 @@ public class AdminLogInServiceImpl implements LogInService{
 	@Override
 	public String logIn(LogInDTO dto) throws AuthorizationException {
 		
-Admin existingAdmin = aDao.findByMobileNo(dto.getMobileNo());
+		Admin existingAdmin = aDao.findByMobileNo(dto.getMobileNo());
 		
 		if(existingAdmin == null) {
 			throw new AuthorizationException("Please register your self first!");

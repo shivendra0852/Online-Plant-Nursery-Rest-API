@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,11 +15,11 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "SEEDS")
 public class Seed {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer seedId;
@@ -55,4 +56,5 @@ public class Seed {
 	@Min(value = 1,message = "Seed Quantity must be greater than 1")
 	private Integer seedPerPacket;
 	
+	private Integer cartId;
 }

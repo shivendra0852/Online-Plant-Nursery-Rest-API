@@ -1,10 +1,7 @@
 package com.greenhood.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
@@ -13,29 +10,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Entity
+@Table(name = "ORDERS")
 public class Order{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderId;
     
     private LocalDate OrderDate;
     
-    private String transactionMode;
+//    private Double totalCost;
     
-    private Integer quantity;
-    
-    private Double totalCost;
-    
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Cart cart;
-
-    private Integer cartId;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 }

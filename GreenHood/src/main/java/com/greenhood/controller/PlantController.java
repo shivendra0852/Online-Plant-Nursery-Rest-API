@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.greenhood.exception.AuthorizationException;
+import com.greenhood.exception.PlantException;
 import com.greenhood.model.Plant;
 import com.greenhood.model.PlantType;
 import com.greenhood.service.PlantService;
@@ -28,39 +29,39 @@ public class PlantController {
 	
 	//-------------- Register New Plant ----------------------------
 	@PostMapping("/plants/{key}")
-	public ResponseEntity<Plant> savePlantHandler(@Valid @RequestBody Plant plant,@PathVariable("key") String key){
+	public ResponseEntity<Plant> savePlantHandler(@Valid @RequestBody Plant plant,@PathVariable("key") String key) throws PlantException, AuthorizationException{
 		Plant savedPlant = pService.registerPlant(plant, key);
 		return new ResponseEntity<Plant>(savedPlant, HttpStatus.CREATED);
 	}
 	
 	//------------------ Update New Plant -----------------------------------
 	@PutMapping("/plants/{key}")
-	public ResponseEntity<Plant> updatePlantHandler( @Valid @RequestBody Plant plant, @PathVariable("key") String key) {
+	public ResponseEntity<Plant> updatePlantHandler( @Valid @RequestBody Plant plant, @PathVariable("key") String key) throws PlantException, AuthorizationException {
 		Plant updatePlant = pService.updatePlant(plant,key);
 		return  new ResponseEntity<Plant>(updatePlant, HttpStatus.OK);
 	}
 	//------------------ Delete New Plant -----------------------------------
 	@DeleteMapping("/plants/{plantId}/{key}")
-	public ResponseEntity<Plant> deletePlantHandler(@PathVariable("plantId")Integer plantId, @PathVariable("key") String key) {
+	public ResponseEntity<Plant> deletePlantHandler(@PathVariable("plantId")Integer plantId, @PathVariable("key") String key) throws PlantException, AuthorizationException{
 		Plant deletePlant = pService.deletePlant(plantId,key);
 		return  new ResponseEntity<Plant>(deletePlant, HttpStatus.OK);
 	}
 	//------------------ Get all List of Plant -----------------------------------
 	@GetMapping("/plants/{key}")
-	public ResponseEntity<List<Plant>> listOfAllPlantHandler( @PathVariable("key") String key) {
+	public ResponseEntity<List<Plant>> listOfAllPlantHandler( @PathVariable("key") String key) throws PlantException, AuthorizationException{
 		List<Plant> list = pService.getAllPlant(key);
 		return  new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	//------------------ Get Plant By Plant Id -----------------------------------
 	@GetMapping("/plants/{plantId}/{key}")
-	public ResponseEntity<Plant> getPlantByIdHandler(@PathVariable("plantId")Integer plantId, @PathVariable("key") String key){
+	public ResponseEntity<Plant> getPlantByIdHandler(@PathVariable("plantId")Integer plantId, @PathVariable("key") String key) throws PlantException, AuthorizationException{
 		Plant plant = pService.getPlantById(plantId, key);
 		return  new ResponseEntity<Plant>(plant, HttpStatus.OK);
 	}
 	
 	////------------------ Get Plant By Plant Type -----------------------------------
 	@GetMapping("/plants/{plantType}/{key}")
-	public ResponseEntity<List<Plant>> getPlantByPlantTypeHandler(@PathVariable("plantType")PlantType plantType, @PathVariable("key") String key){
+	public ResponseEntity<List<Plant>> getPlantByPlantTypeHandler(@PathVariable("plantType")PlantType plantType, @PathVariable("key") String key) throws PlantException, AuthorizationException{
 		List<Plant> list = pService.getPlantByPlantType(plantType, key);
 		return  new ResponseEntity<List<Plant>>(list, HttpStatus.OK);
 	}
