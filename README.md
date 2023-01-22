@@ -75,5 +75,5 @@ spring.datasource.password=your_password_here
 https://localhost:8808/
 ```
 ```
-https://localhost:8808/swagger-ui.html
+https://localhost:8808/swagger-ui/index.html
 ```
