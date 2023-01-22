@@ -16,7 +16,7 @@ A Spring Boot REST API web service for an online plant nursery application, deve
 <p>
         <img
         align="center"
-        src="https://github.com/shivendra0852/coherent-seed-8664/blob/main/media/GreenHoodERDiagram.jpg"
+        src="https://github.com/shivendra0852/coherent-seed-8664/blob/main/media/GreenHoodERDiagram.jpeg"
         alt="Coding"
         width="700"
         style="display: block"/>
