@@ -33,9 +33,9 @@ public class PlanterServiceImpl implements PlanterService{
 		if(admin==null) {
 			throw new AuthorizationException("Faild.. Admin must be loged in");
 		}
-//		if(planter==null) {
-//			throw new PlanterException("please Enter  valid data");
-//		}
+		if(planter==null) {
+			throw new PlanterException("please Enter  valid data");
+		}
 		
 		return planterDao.save(planter);
 	}
