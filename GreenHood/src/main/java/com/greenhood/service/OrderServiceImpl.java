@@ -11,6 +11,7 @@ import com.greenhood.exception.AuthorizationException;
 import com.greenhood.exception.CartException;
 import com.greenhood.exception.OrderException;
 import com.greenhood.model.Cart;
+import com.greenhood.model.Customer;
 import com.greenhood.model.CustomerCurrentSession;
 import com.greenhood.model.Order;
 import com.greenhood.model.OrderDTO;
@@ -36,7 +37,7 @@ public class OrderServiceImpl implements OrdersService{
 	private OrderDao oDao;
 
 	@Override
-	public Order placeOrder(Integer cartId, String key) throws CartException, AuthorizationException {
+	public OrderDTO placeOrder(Integer cartId, String key) throws CartException, AuthorizationException {
 		
 		CustomerCurrentSession loggedInUser = cSDao.findByUniqueId(key);
 		
@@ -57,9 +58,9 @@ public class OrderServiceImpl implements OrdersService{
 				res.setCart(cart);
 				res.setCustomer(customerDao.findById(loggedInUser.getCustomerId()).get());
 				
-				return oDao.save(res);
+				oDao.save(res);
 				
-//				return new OrderDTO(res.getOrderId(),res.getOrderDate(),res.getTotalCost());
+				return new OrderDTO(res.getOrderId(),res.getOrderDate(),res.getTotalCost());
 			}
 			else {
 				throw new CartException("Cart is empty!");
@@ -73,7 +74,7 @@ public class OrderServiceImpl implements OrdersService{
 	}
 
 	@Override
-	public List<OrderDTO> viewOrders(String key) throws OrderException, AuthorizationException {
+	public List<Order> viewOrders(String key) throws OrderException, AuthorizationException {
 		
 		CustomerCurrentSession loggedInUser = cSDao.findByUniqueId(key);
 		
@@ -81,8 +82,13 @@ public class OrderServiceImpl implements OrdersService{
 			throw new AuthorizationException("Please provide valid details!");
 		}
 		
+		Customer getCustomer = customerDao.findById(loggedInUser.getCustomerId()).get();
 		
-		return null;
+		if(getCustomer.getOrderList().size()<0) {
+			throw new OrderException("No orders available");
+		}
+		
+		return getCustomer.getOrderList();
 	}
 
 }

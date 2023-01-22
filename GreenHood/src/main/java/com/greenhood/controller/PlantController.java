@@ -48,7 +48,7 @@ public class PlantController {
 	}
 	//------------------ Get all List of Plant -----------------------------------
 	@GetMapping("/plants")
-	public ResponseEntity<List<Plant>> listOfAllPlantHandler( @PathVariable("key") String key) throws PlantException{
+	public ResponseEntity<List<Plant>> listOfAllPlantHandler() throws PlantException{
 		List<Plant> list = pService.getAllPlant();
 		return  new ResponseEntity<>(list, HttpStatus.OK);
 	}

@@ -9,7 +9,7 @@ import com.greenhood.model.Order;
 import com.greenhood.model.OrderDTO;
 
 public interface OrdersService {
-	public Order placeOrder(Integer cartId, String key) throws CartException, AuthorizationException;
+	public OrderDTO placeOrder(Integer cartId, String key) throws CartException, AuthorizationException;
 	
-	public List<OrderDTO> viewOrders(String key) throws OrderException, AuthorizationException;
+	public List<Order> viewOrders(String key) throws OrderException, AuthorizationException;
 }
