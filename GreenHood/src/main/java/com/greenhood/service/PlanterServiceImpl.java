@@ -7,11 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.greenhood.exception.AuthorizationException;
+import com.greenhood.exception.PlantException;
 import com.greenhood.exception.PlanterException;
+import com.greenhood.exception.SeedException;
 import com.greenhood.model.AdminCurrentSession;
+import com.greenhood.model.Plant;
 import com.greenhood.model.Planter;
+import com.greenhood.model.Seed;
 import com.greenhood.repository.AdminSessionDao;
+import com.greenhood.repository.PlantDao;
 import com.greenhood.repository.PlanterDao;
+import com.greenhood.repository.SeedDao;
 
 @Service
 public class PlanterServiceImpl implements PlanterService{
@@ -22,11 +28,17 @@ public class PlanterServiceImpl implements PlanterService{
 	@Autowired
 	private AdminSessionDao adminSessionDao;
 
+	@Autowired
+	private PlantDao plantDao;
+	
+	@Autowired
+	private SeedDao seedDao;
+	
 	
 	//================================================Planter addition=========================================================
 	
 	@Override
-	public Planter addPlanter(Planter planter, String adminKey) throws PlanterException {
+	public Planter addPlanter(Planter planter,Integer plantId, Integer seedId, String adminKey) throws PlanterException {
 		
 		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
 		
@@ -36,6 +48,23 @@ public class PlanterServiceImpl implements PlanterService{
 		if(planter==null) {
 			throw new PlanterException("please Enter  valid data");
 		}
+		Optional<Plant> p = plantDao.findById(plantId);
+		
+		 
+		Optional<Seed> s = seedDao.findById(seedId);
+		
+		if(p.isPresent()) {
+			planter.setPlant(p.get());
+		}else {
+			throw new SeedException("Plant is not available for this Id: "+plantId);
+		}
+		
+		if(s.isPresent()) {
+			planter.setSeed(s.get());
+		}else {
+			throw new SeedException("Seed is not available for this Id: "+seedId);
+		}
+		
 		
 		return planterDao.save(planter);
 	}
@@ -57,7 +86,16 @@ public class PlanterServiceImpl implements PlanterService{
 		Optional<Planter> pltr = planterDao.findById(planter.getPlanterId());
 		
 		if(pltr.isPresent()) {
-			return planterDao.save(planter);
+			Planter p = pltr.get();
+			p.setDrainageHoles(planter.getDrainageHoles());
+			p.setPlanterCapacity(planter.getPlanterCapacity());
+			p.setPlanterColor(planter.getPlanterColor());
+			p.setPlanterCost(planter.getPlanterCost());
+			p.setPlanterHeight(planter.getPlanterHeight());
+			p.setPlanterShape(planter.getPlanterShape());
+			p.setPlanterStock(planter.getPlanterStock());
+		
+			return planterDao.save(p);
 			
 		}else {
 			throw new PlanterException("Planter not found provide valid data");
@@ -167,7 +205,8 @@ public class PlanterServiceImpl implements PlanterService{
 	
 	
 	
-
+// due to foreign key constraints this method will not work
+	
 	@Override
 	public String removePlanterByPlanterId(Integer planterId, String adminKey) throws PlanterException {
 		
@@ -184,9 +223,9 @@ public class PlanterServiceImpl implements PlanterService{
 			
 			Planter p = pltr.get();
 			
-			planterDao.delete(p);
+			planterDao.deleteById(p.getPlanterId());
 			
-			return "Planter Deleted Successfully "+p.toString();
+			return "Planter Deleted Successfully ";
 			
 		}else {
 			throw new PlanterException("Planter not found provide valid data");
@@ -200,7 +239,12 @@ public class PlanterServiceImpl implements PlanterService{
 	
 	
 	@Override
-	public Planter viewPlanterByPlanterId(int planterId) throws PlanterException {
+	public Planter viewPlanterByPlanterId(String adminKey,Integer planterId) throws PlanterException {
+		AdminCurrentSession admin = adminSessionDao.findByUniqueId(adminKey);
+		
+		if(admin==null) {
+			throw new AuthorizationException("Faild.. Admin must be loged in");
+		}
 		
 		Optional<Planter> planter = planterDao.findById(planterId);
 		
@@ -249,7 +293,7 @@ public class PlanterServiceImpl implements PlanterService{
 
 	
 	@Override
-	public List<Planter> viewAllPlantersBetweenTwoCostRange(double minCost, double maxCost) throws PlanterException {
+	public List<Planter> viewAllPlantersBetweenTwoCostRange(Integer minCost, Integer maxCost) throws PlanterException {
 
 		if(minCost>maxCost) {
 			throw new PlanterException("Plaese Enter Valid cost");

@@ -27,10 +27,10 @@ public class PlanterController {
 	
 	
 	
-	@PostMapping("/planters/{adminKey}")
-	public ResponseEntity<Planter> addPlanterHandler(@RequestBody Planter planter, @PathVariable("adminKey") String adminKey){
+	@PostMapping("/planters/{plantId}/{seedId}/{adminKey}")
+	public ResponseEntity<Planter> addPlanterHandler(@RequestBody Planter planter,@PathVariable("plantId") Integer plantId, @PathVariable("seedId") Integer seedId, @PathVariable("adminKey") String adminKey){
 		
-		Planter planter1 = planterService.addPlanter(planter, adminKey);
+		Planter planter1 = planterService.addPlanter(planter,plantId,seedId,adminKey);
 		
 		return new ResponseEntity<Planter>(planter1, HttpStatus.CREATED);
 		
@@ -112,10 +112,10 @@ public class PlanterController {
 
 	
 	
-	@GetMapping("/planters/{planterId}")
-	public ResponseEntity<Planter> viewPlanterByPlanterIdHandler(@PathVariable("planterId") Integer planterId){
+	@GetMapping("/planters/{adminKey}/{planterId}")
+	public ResponseEntity<Planter> viewPlanterByPlanterIdHandler(@PathVariable("adminKey") String adminKey,@PathVariable("planterId") Integer planterId){
 		
-		Planter planter = planterService.viewPlanterByPlanterId(planterId);
+		Planter planter = planterService.viewPlanterByPlanterId(adminKey,planterId);
 		
 		return new ResponseEntity<>(planter, HttpStatus.OK);
 		
@@ -155,7 +155,7 @@ public class PlanterController {
 
 	
 	
-	@GetMapping("/planters/{minCost}/{maxCost}")
+	@GetMapping("/plantersByCost/{minCost}/{maxCost}")
 	public ResponseEntity<List<Planter>> viewAllPlantersBetweenTwoCostRangeHandler(@PathVariable("minCost") Integer minCost, @PathVariable("maxCost") Integer maxCost){
 		
 		List<Planter> planters = planterService.viewAllPlantersBetweenTwoCostRange(minCost, maxCost);
