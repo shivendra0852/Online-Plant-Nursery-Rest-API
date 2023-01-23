@@ -12,16 +12,6 @@
 
 A Spring Boot REST API web service for an online plant nursery application, developed using Core Java and the Spring Framework. The application utilizes a MySQL database for data storage and CRUD operations. The team consists of five members. The purpose of this service is to provide functionality for customers to browse and purchase plants, as well as for the management of the plant inventory and customer orders. The API includes endpoints for plant and order management, user authentication, and more. This project is open-source and hosted on GitHub.
 
-## ER- Diagram
-<p>
-        <img
-        align="center"
-        src="https://github.com/shivendra0852/coherent-seed-8664/blob/main/media/GreenHoodERDiagram.jpeg"
-        alt="Coding"
-        width="700"
-        style="display: block"/>
-    </p>
-    <br>
     
 ## Tech Stack and Tools
 - Core Java
@@ -33,6 +23,18 @@ A Spring Boot REST API web service for an online plant nursery application, deve
 - MySQL
 - Lombok
 - Swagger-UI
+
+
+## ER- Diagram
+<p>
+        <img
+        align="center"
+        src="https://github.com/shivendra0852/coherent-seed-8664/blob/main/media/GreenHoodERDiagram.jpeg"
+        alt="Coding"
+        width="700"
+        style="display: block"/>
+    </p>
+    <br>
 
 ## Modules
 - Login & Logout Module
